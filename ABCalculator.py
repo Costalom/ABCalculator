@@ -1,6 +1,7 @@
 # A/B калькулятор
 
 import tkinter as tk
+from tkinter import messagebox as mb
 
 # Функция закрытия программы
 def do_close():
@@ -13,6 +14,12 @@ def do_processing():
     n2 = int(entVisitors2.get())
     c2 = int(entConversions2.get()) 
     
+    # Проверка данных из полей ввода
+    if n1<=0 or n2<=0:
+        mb.showerror(title="Ошибка", message="Неверное количество посетителей")
+        return
+    
+    # Открытие окна результата
     popup_window(n1, c1, n2, c2)  
 
 # Функция вызова окна результата
