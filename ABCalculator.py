@@ -53,7 +53,7 @@ def popup_window(n1, c1, n2, c2):
     sigma2 = math.sqrt(p2*(1-p2)/n2)
     txtOutput.insert(tk.END, 'Стандартное отклонение    ' + num_percent(sigma1)
         + '             ' + num_percent(sigma2) + os.linesep)
-    txtOutput.insert(tk.END, '                                                                               ' + os.linesep)    
+    txtOutput.insert(tk.END, '_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _' + os.linesep)    
             
     # Добавление кнопки закрытия окна
     btnClosePopup = tk.Button(window, text="Закрыть", bg='#990000', fg='white', font = ('Helvetica', 10, 'bold'), command=window.destroy)
