@@ -117,6 +117,26 @@ def popup_window(n1, c1, n2, c2):
     if p_value < 0.005 or p_value > 0.995:
         confidence_99 = True     
             
+    lblComment95 = tk.Label(window, text = "95% уверенность:", font = ('Helvetica', 10, 'bold'))
+    lblComment95.place(x=25, y=25)
+    
+    if confidence_95:
+        lblResult95 = tk.Label(window, text = "ДА", font = ('Helvetica', 12, 'bold'), fg = '#008800')
+        lblResult95.place(x=160, y=25)
+    else:
+        lblResult95 = tk.Label(window, text = "НЕТ", font = ('Helvetica', 12, 'bold'), fg = '#ff0000')
+        lblResult95.place(x=160, y=25)      
+    
+    lblComment99 = tk.Label(window, text = "99% уверенность:", font = ('Helvetica', 10, 'bold'))
+    lblComment99.place(x=25, y=65)
+    
+    if confidence_99:
+        lblResult99 = tk.Label(window, text = "ДА", font = ('Helvetica', 12, 'bold'), fg = '#008800')
+        lblResult99.place(x=160, y=65)
+    else:
+        lblResult99 = tk.Label(window, text = "НЕТ", font = ('Helvetica', 12, 'bold'), fg = '#ff0000')
+        lblResult99.place(x=160, y=65) 
+    
     # Добавление кнопки закрытия окна
     btnClosePopup = tk.Button(window, text="Закрыть", bg='#990000', fg='white', font = ('Helvetica', 10, 'bold'), command=window.destroy)
     btnClosePopup.place(x=190, y=450, width=90, height=30)
@@ -143,14 +163,14 @@ lblVisitors1.place(x=40, y=120)
 
 entVisitors1 = tk.Entry(font = ('Helvetica', 10, 'bold'), justify='center')
 entVisitors1.place(x=125, y=120, width=90, height=20)
-entVisitors1.insert(tk.END, '255')
+entVisitors1.insert(tk.END, '0')
 
 lblConversions1 = tk.Label(text = "Конверсии:", font = ('Helvetica', 10, 'bold'))
 lblConversions1.place(x=40, y=147)
 
 entConversions1 = tk.Entry(font = ('Helvetica', 10, 'bold'), justify='center')
 entConversions1.place(x=125, y=147, width=90, height=20)
-entConversions1.insert(tk.END, '26')
+entConversions1.insert(tk.END, '0')
 
 # Добавление метки заголовка тестовой группы
 lblTitle = tk.Label(text = "Тестовая группа", font = ('Helvetica', 12, 'bold'), fg = '#0066ff')
@@ -162,14 +182,14 @@ lblVisitors2.place(x=40, y=225)
 
 entVisitors2 = tk.Entry(font = ('Helvetica', 10, 'bold'), justify='center')
 entVisitors2.place(x=125, y=225, width=90, height=20)
-entVisitors2.insert(tk.END, '235')
+entVisitors2.insert(tk.END, '0')
 
 lblConversions2 = tk.Label(text = "Конверсии:", font = ('Helvetica', 10, 'bold'))
 lblConversions2.place(x=40, y=252)
 
 entConversions2 = tk.Entry(font = ('Helvetica', 10, 'bold'), justify='center')
 entConversions2.place(x=125, y=252, width=90, height=20)
-entConversions2.insert(tk.END, '18')
+entConversions2.insert(tk.END, '0')
 
 # Добавление кнопки "Рассчитать"
 btnProcess = tk.Button(root, text="Расчитать", bg='#003300', fg='white', font = ('Helvetica', 10, 'bold'), command=do_processing)
