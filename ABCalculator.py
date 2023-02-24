@@ -4,6 +4,7 @@ import tkinter as tk
 from tkinter import messagebox as mb
 import os
 import math
+from scipy.stats import norm
 
 # Функция закрытия программы
 def do_close():
@@ -54,6 +55,67 @@ def popup_window(n1, c1, n2, c2):
     txtOutput.insert(tk.END, 'Стандартное отклонение    ' + num_percent(sigma1)
         + '             ' + num_percent(sigma2) + os.linesep)
     txtOutput.insert(tk.END, '_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _' + os.linesep)    
+    
+    # Добавление вывода возможных разбросов
+    z1 = 1.96
+    lower1_95 = p1-z1*sigma1
+    if lower1_95 < 0:
+        lower1_95 = 0
+    upper1_95 = p1+z1*sigma1
+    if upper1_95 > 1:
+        upper1_95 = 0
+        
+    lower2_95 = p2-z1*sigma2
+    if lower2_95 < 0:
+        lower2_95 = 0
+    upper2_95 = p2+z1*sigma2
+    if upper2_95 > 1:
+        upper2_95 = 1
+    
+    txtOutput.insert(tk.END, '95% Возможный разброс  ' + os.linesep)
+    txtOutput.insert(tk.END, '                   От                       ' + num_percent(lower1_95)
+        + '            ' + num_percent(lower2_95) + os.linesep)
+    txtOutput.insert(tk.END, '                   До                       ' + num_percent(upper1_95)
+        + '            ' + num_percent(upper2_95) + os.linesep)
+    txtOutput.insert(tk.END, '                                  ' + os.linesep)      
+    
+    z2 = 2.575
+    lower1_99 = p1-z2*sigma1
+    if lower1_99 < 0:
+        lower1_99 = 0
+    upper1_99 = p1+z2*sigma1
+    if upper1_99 > 1:
+        upper1_99 = 0
+        
+    lower2_99 = p2-z2*sigma2
+    if lower2_99 < 0:
+        lower2_99 = 0
+    upper2_99 = p2+z2*sigma2
+    if upper2_99 > 1:
+        upper2_99 = 1
+    
+    txtOutput.insert(tk.END, '99% Возможный разброс  ' + os.linesep)
+    txtOutput.insert(tk.END, '                   От                       ' + num_percent(lower1_99)
+        + '            ' + num_percent(lower2_99) + os.linesep)
+    txtOutput.insert(tk.END, '                   До                       ' + num_percent(upper1_99)
+        + '            ' + num_percent(upper2_99) + os.linesep)
+    txtOutput.insert(tk.END, '                                  ' + os.linesep)                    
+    
+    # Вычисление Z и P
+    z_score = (p2-p1)/math.sqrt(sigma1*sigma1+sigma2*sigma2)
+    txtOutput.insert(tk.END, 'Z = ' + "{:.7f}".format(z_score) + os.linesep)
+    
+    p_value = norm.sf(x=z_score, loc=0, scale=1)
+    txtOutput.insert(tk.END, 'P = ' + "{:.7f}".format(p_value) + os.linesep)
+     
+    # Добавление оценки результатов 
+    confidence_95 = False
+    if p_value < 0.025 or p_value > 0.975:
+        confidence_95 = True
+        
+    confidence_99 = False
+    if p_value < 0.005 or p_value > 0.995:
+        confidence_99 = True     
             
     # Добавление кнопки закрытия окна
     btnClosePopup = tk.Button(window, text="Закрыть", bg='#990000', fg='white', font = ('Helvetica', 10, 'bold'), command=window.destroy)
